@@ -36,6 +36,16 @@ public abstract class AbstractDao<T> {
         return this.createQuery(cq);
     }
 
+    @Transactional(readOnly = true)
+    public T select(Long id){
+        return this.em.find(this.clazz, id);
+    }
+
+    @Transactional(readOnly = true)
+    public java.util.List<T> selectAll(){
+        return this.getSelectQuery().getResultList();
+    }
+
     @Transactional
     public void persist(T entity){
         this.em.persist(entity);
